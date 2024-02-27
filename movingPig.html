@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="lt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas interaktyvus</title>
+</head>
+
+<body>
+    <section>
+        <div>
+            <canvas id="objektas" width="300" height="200">Your browser does not support the HTML5 canvas tag.</canvas>
+            <p>Moving piggy. Press right or left arrow to move</p>
+        </div>
+        <script>
+            let canvas, ctx;
+            let plotis = 300;
+            let aukstis = 200;
+            let x = 150;
+            let y = 100;
+            let dx = 5;
+            let dy = 5;
+
+            function pradzia() {
+                canvas = document.getElementById('objektas');
+                ctx = canvas.getContext('2d');
+                return setInterval(piesti, 10);
+            }
+            function piesti() {
+                isvalyti();
+                ctx.fillStyle = 'white';
+                ctx.strokeStyle = 'black';
+                remelis(0, 0, plotis, aukstis);
+                ctx.fillStyle = '#FCB0B0';
+                objektas(x, y, 60);
+                ctx.fillStyle = 'pink';
+                objektas(x, y + 10, 20);
+                ctx.fillStyle = 'white';
+                objektas(x - 10, y + 10, 5);
+                ctx.fillStyle = 'white';
+                objektas(x + 10, y + 10, 5);
+                ctx.fillStyle = 'white';
+                objektas(x - 20, y - 20, 10);
+                ctx.fillStyle = 'white';
+                objektas(x + 20, y - 20, 10);
+                ctx.fillStyle = 'black';
+                objektas(x - 18, y - 22, 5);
+                ctx.fillStyle = 'black';
+                objektas(x + 18, y - 22, 5);
+            }
+            function isvalyti() {
+                ctx.clearRect(0, 0, plotis, aukstis);
+            }
+            function objektas(x, y, r) {
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, 2 * Math.PI, true);
+                ctx.fill();
+            }
+            function remelis(x, y, plot, aukst) {
+                ctx.beginPath();
+                ctx.rect(x, y, plot, aukst);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+            }
+            function judeti(e) {
+                switch (e.keyCode) {
+                    case 37:  //rodykle i kaire
+                        if (x - dx > 0.92 * x) {
+                            x -= dx;
+                        }
+                        break;
+                    case 39:  //rodykle i desine
+                        if (x + dx < plotis - 0.25 * x) {
+                            x += dx;
+                        }
+                        break;
+                }
+            }
+            pradzia();
+            window.addEventListener('keydown', judeti, true);
+        </script>
+    </section>
+</body>
+
+</html>

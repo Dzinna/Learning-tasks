@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Liftas</title>
+	<meta charset="utf-8">
+	<style>
+		canvas {
+			border: 1px solid #d3d3d3;
+			background-color: #f1f1f1;
+		}
+	</style>
+</head>
+
+<body onload="startGame()">
+	<script>
+		let myGamePiece, doors;
+
+
+		function startGame() {
+			myGamePiece = new component(120, 10, "grey", 180, 350); // susikuriam judinama objekta
+			doors = new component(5, 200, "black", 240, 140); // kairines durys
+			doorsSecond = new component(5, 200, "black", 240, 140); // desinines durys
+			myGameArea.start();
+		}
+
+		let myGameArea = {
+			canvas: document.createElement("canvas"),
+			start: function () {
+				this.canvas.width = 480;
+				this.canvas.height = 480;
+				this.context = this.canvas.getContext("2d");
+				document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+				this.interval = setInterval(updateGameArea, 500); // lifto judėjimo greitis
+
+				//nusipiesiam lifta
+				this.context.beginPath();
+				this.context.moveTo(180, 340);
+				this.context.lineTo(180, 140);
+				this.context.lineTo(300, 140);
+				this.context.lineTo(300, 340);
+
+				this.context.lineTo(360, 340);
+				this.context.lineTo(360, 80);
+				this.context.lineTo(120, 80);
+				this.context.lineTo(120, 340);
+				this.context.closePath();
+				this.context.strokeStyle = "black";
+				this.context.stroke();
+
+				this.context.beginPath();
+				this.context.moveTo(120, 340);
+				this.context.lineTo(360, 340);
+				this.context.strokeStyle = "black";
+				this.context.stroke();
+
+				this.context.beginPath();
+				this.context.lineTo(315, 280);
+				this.context.lineTo(315, 220);
+				this.context.lineTo(345, 220);
+				this.context.lineTo(345, 280);
+				this.context.closePath();
+				this.context.strokeStyle = "black";
+				this.context.stroke();
+			},
+			clear: function () {
+				this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+				//nusipiesiam lifta
+				this.context.beginPath();
+				this.context.moveTo(180, 340);
+				this.context.lineTo(180, 140);
+				this.context.lineTo(300, 140);
+				this.context.lineTo(300, 340);
+				this.context.lineTo(360, 340);
+				this.context.lineTo(360, 80);
+				this.context.lineTo(120, 80);
+				this.context.lineTo(120, 340);
+				this.context.closePath();
+				this.context.strokeStyle = "black";
+				this.context.stroke();
+
+				this.context.beginPath();
+				this.context.moveTo(120, 340);
+				this.context.lineTo(360, 340);
+				this.context.strokeStyle = "black";
+				this.context.stroke();
+
+				this.context.beginPath();
+				this.context.lineTo(315, 280);
+				this.context.lineTo(315, 220);
+				this.context.lineTo(345, 220);
+				this.context.lineTo(345, 280);
+				this.context.closePath();
+				this.context.strokeStyle = "black";
+				this.context.stroke();
+
+			}
+		}
+
+		function component(width, height, color, x, y) {
+			this.width = width;
+			this.height = height;
+			this.x = x;
+			this.y = y;
+			this.update = function () {
+				ctx = myGameArea.context;
+				ctx.fillStyle = color;
+				ctx.fillRect(this.x, this.y, this.width, this.height);
+			}
+		}
+
+		function updateGameArea() {
+			for (let i = 0; i < 10; i++) {
+				if (myGamePiece.y > 140) {
+					myGameArea.clear();
+					myGamePiece.y -= 1;
+					myGamePiece.update();
+				} else {
+					if (doors.x > 180) {
+						doors.x -= 1;
+						doorsSecond.x += 1;
+						doors.update();
+						doorsSecond.update();
+					} else {
+						doors.update();
+						doorsSecond.update();
+						document.getElementById("demo").innerHTML = "***Sveiki atvykę į antrą aukštą!***";
+					}
+				}
+
+			}
+
+		}
+
+	</script>
+
+	<p id="demo">***Liftas kyla į antrą aukštą ir sustoja***</p>
+
+</body>
+
+</html>

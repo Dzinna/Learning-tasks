@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Diagrama</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body {
+			background-color: white;
+			color: black;
+			font: 20px Tahoma;
+		}
+
+		H1 {
+			font: 50px;
+			text-decoration: underline overline;
+		}
+	</style>
+	<script>
+		let canvas, context, Val_max, Val_min, sections, xScale, yScale;
+		const Berniukai = [16, 12, 20, 13];
+		const Mergaites = [13, 18, 8, 14];
+		sections = 4;
+		Val_max = 25;
+		Val_min = 0;
+		let stepSize = 5;
+		let columnSize = 80;
+		let rowSize = 80;
+		let margin = 10;
+		let xAxis = [" ", "6a", "7a", "8a", "9a"]
+
+		window.onload = function () {
+			canvas = document.getElementById("dia2");
+			context = canvas.getContext("2d");
+			context.fillStyle = "grey";
+			context.font = "20pt Verdana";
+			context.fillText('Berniukai', 200, 990);
+			context.fillText('Mergaitės', 600, 990);
+
+			context.strokeStyle = "blue";
+			context.beginPath();
+			context.moveTo(50, 980);
+			context.lineTo(150, 980);
+			context.lineWidth = 2;
+			context.stroke();
+
+			context.strokeStyle = "red";
+			context.beginPath();
+			context.moveTo(450, 980);
+			context.lineTo(550, 980);
+			context.lineWidth = 2;
+			context.stroke();
+
+			yScale = ((canvas.height - columnSize - margin) / (Val_max - Val_min)) - 4;
+			xScale = (canvas.width - rowSize) / sections;
+
+			context.strokeStyle = "grey"; // fono liniju spalvos
+			context.beginPath();
+			context.moveTo(rowSize - 5, rowSize);
+			context.lineTo(rowSize - 5, canvas.height - yScale * 3);
+
+			for (let i = 1; i <= sections; i++) {
+				let x = i * xScale;
+				context.fillText(xAxis[i], x - 120, canvas.height - yScale * 2);
+				context.moveTo(x + rowSize - 5, canvas.height - yScale - rowSize);
+				context.lineTo(x + rowSize - 5, canvas.height - yScale * 3);
+			}
+
+			let count = 0;
+			for (scale = Val_max; scale >= Val_min; scale = scale - stepSize) {
+				let y = columnSize + (yScale * count * stepSize);
+				context.fillText(scale, margin, y + margin);
+				context.moveTo(rowSize - 18, y)
+				context.lineTo(canvas.width - 5, y)
+				count++;
+			}
+			context.stroke();
+			context.translate(rowSize, canvas.height + Val_min * yScale);
+			context.scale(1, -1 * yScale);
+			context.strokeStyle = "blue";
+			context.lineWidth = 0.2;
+			plotData(Berniukai);
+			context.strokeStyle = "red";
+			context.lineWidth = 0.2;
+			plotData(Mergaites);
+
+
+		}
+
+		function plotData(dataSet) {
+			context.beginPath();
+			context.moveTo(xScale / 2, dataSet[0] + 3.4);
+			for (i = 1; i < sections; i++) {
+				context.lineTo(i * xScale + columnSize, dataSet[i] + 3.4);
+			}
+			context.stroke();
+		}
+	</script>
+</head>
+
+<body>
+	<hr>
+	<h2>Diagrama</h2>
+	<canvas id="dia2" width="1500" height="1000">
+		Your browser does not support the HTML5 canvas tag.</canvas>
+
+	<hr>
+</body>
+
+</html>

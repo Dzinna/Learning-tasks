@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="lt">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Diagrama1</title>
+	<style>
+		rect {
+			fill: #5395da;
+		}
+
+		text {
+			font: 15px Tahoma;
+			color: grey;
+		}
+
+		svg {
+			stroke: grey;
+			stroke-width: 1px;
+		}
+	</style>
+	<script>
+		window.onload = function () {
+			const duom = [1000, 1500, 1300, 1600, 1100];
+			const zaid = ['Audrius', 'Arūnė', 'Gintaras', 'Arvydas', 'Skirmantė'];
+			const kiek = 5;
+
+			for (let i = 0; i < duom.length; i++) {
+				document.getElementsByTagName('rect')[i].setAttribute('width', duom[i] / 2); // grafų ilgis
+			}
+			let prad = 5;
+			for (let j = 0; j < zaid.length; j++) {
+				document.getElementsByTagName('text')[j].innerHTML = duom[j] + ',00€';
+				document.getElementsByTagName('text')[j].setAttribute('x', duom[j] / 2 - 80);
+				document.getElementsByTagName('text')[prad].innerHTML = zaid[j];
+				prad = prad + 1;
+			}
+
+		}
+	</script>
+</head>
+
+<body>
+	<h1 style="position:relative;left:550px;color:grey;">Uždarbis</h1>
+
+	<svg id="pirma" width="1100" height="600">
+		<!--diagramos fonas-->
+		<line x1="100" y1="0" x2="100" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="200" y1="0" x2="200" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="300" y1="0" x2="300" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="400" y1="0" x2="400" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="500" y1="0" x2="500" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="600" y1="0" x2="600" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="700" y1="0" x2="700" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="800" y1="0" x2="800" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="900" y1="0" x2="900" y2="440" stroke="grey" stroke-width="1" />
+		<line x1="1000" y1="0" x2="1000" y2="440" stroke="grey" stroke-width="1" />
+
+		<!--grafos-->
+		<g transform="translate(100,40)">
+			<rect width="40" height="40"></rect>
+			<text id="antr0" x="42" y="20" dy=".35em"></text>
+		</g>
+		<g transform="translate(100,120)">
+			<rect width="140" height="40"></rect>
+			<text id="antr1" x="142" y="20" dy=".35em"></text>
+		</g>
+		<g transform="translate(100,200)">
+			<rect width="80" height="40"></rect>
+			<text id="antr2" x="82" y="20" dy=".35em"></text>
+		</g>
+		<g transform="translate(100,280)">
+			<rect width="80" height="40"></rect>
+			<text id="antr3" x="82" y="20" dy=".35em"></text>
+		</g>
+		<g transform="translate(100,360)">
+			<rect width="80" height="40"></rect>
+			<text id="antr4" x="82" y="20" dy=".35em"></text>
+		</g>
+
+		<!--zaidejai-->
+		<text id="z1" x="10" y="60"></text>
+		<text id="z2" x="10" y="140"></text>
+		<text id="z3" x="10" y="220"></text>
+		<text id="z4" x="10" y="300"></text>
+		<text id="z5" x="10" y="380"></text>
+
+		<!--kaina-->
+		<text id="k1" x="80" y="480">- €</text>
+		<text id="k2" x="180" y="480">200,00€</text>
+		<text id="k3" x="280" y="480">400,00€</text>
+		<text id="k4" x="380" y="480">600,00€</text>
+		<text id="k5" x="480" y="480">800,00€</text>
+		<text id="k6" x="580" y="480">1000,00€</text>
+		<text id="k7" x="680" y="480">1200,00€</text>
+		<text id="k8" x="780" y="480">1400,00€</text>
+		<text id="k9" x="880" y="480">1600,00€</text>
+		<text id="k10" x="980" y="480">1800,00€</text>
+
+		Sorry, your browser does not support inline SVG.
+	</svg>
+
+</body>
+
+</html>

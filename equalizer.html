@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="lt">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Equalizer</title>
+
+	<script>
+		const AU = [];
+		const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+		let TXT = '';
+		window.onload = function () {
+			document.getElementById('CIA');
+			laikas();
+		}
+
+		function laikas() {
+			for (let i = 0; i < 10; i++) {
+				AU[i] = Math.round(Math.random() * 100 + 20);//[20;120]
+				TXT += '<rect width="10" />';
+			}
+
+			document.getElementById('CIA').innerHTML = TXT;
+			for (let i = 0; i < 10; i++) {
+				document.getElementsByTagName('rect')[i].setAttribute('height', AU[i]);
+				document.getElementsByTagName('rect')[i].setAttribute('x', i * 12 + 10);
+				document.getElementsByTagName('rect')[i].setAttribute('fill', "#" + randomColor);
+
+			}
+			setTimeout('laikas()', 200);
+		}
+
+
+	</script>
+</head>
+
+<body>
+	<h1>Equalizer</h1>
+	<hr>
+	<svg id="CIA">
+
+	</svg>
+	<hr>
+</body>
+
+</html>
